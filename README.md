@@ -15,3 +15,5 @@ If you can run Bash, you can update your hostfile automatically after vagrant is
 
 	chmod +x hostfile.sh
 	./hostfile.sh
+
+Vagrant pattern forked and adapted from https://github.com/fideloper/Vaprobash
