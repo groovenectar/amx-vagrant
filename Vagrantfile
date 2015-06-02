@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 hostname = "amx.dev"
-synced_folder = "/usr/share/nginx"
-public_folder = "/usr/share/nginx/html"
+synced_folder = "/var/www/#{hostname}"
+public_folder = "/var/www/#{hostname}/public"
 
 # Set a local private network IP address.
 # See http://en.wikipedia.org/wiki/Private_network for explanation
@@ -35,6 +35,7 @@ ruby_gems             = [        # List any Ruby Gems that you want to install
     #"jekyll",
     "sass",
     "compass",
+    "foundation"
 ]
 
 # To install HHVM instead of PHP, set this to "true"
