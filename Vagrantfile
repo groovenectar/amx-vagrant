@@ -20,7 +20,7 @@ server_swap           = "768" # Options: false | int (MB) - Guideline: Between o
 # EST        for Eastern Standard Time
 # US/Central for American Central
 # US/Eastern for American Eastern
-server_timezone  = "EST"
+server_timezone  = "UTC"
 
 # Database Configuration
 mysql_root_password   = "root"   # We'll assume user "root"
