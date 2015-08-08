@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-hostname = "amx.dev"
+hostname = "ameronix.dev"
 synced_folder = "/var/www/#{hostname}"
 public_folder = "/var/www/#{hostname}/public"
 
@@ -49,13 +49,14 @@ composer_packages     = [        # List any global Composer packages that you wa
     #"squizlabs/php_codesniffer:1.5.*",
 ]
 
-nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
-nodejs_packages       = [          # List any global NodeJS packages that you want to install
-    "grunt-cli",
-    "gulp",
-    "bower",
-    #"yo",
-]
+# Very slow in vagrant. Probably should just install it locally with global packages anyway.
+# nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
+# nodejs_packages       = [          # List any global NodeJS packages that you want to install
+#     "grunt-cli",
+#     "gulp",
+#     "bower",
+#     #"yo",
+# ]
 
 sphinxsearch_version  = "rel22" # rel20, rel21, rel22, beta, daily, stable
 
@@ -227,10 +228,10 @@ Vagrant.configure("2") do |config|
     ##########
 
     # Install Nodejs
-    config.vm.provision "shell", path: "#{github_url}/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
-
+    # Very slow in vagrant. Probably should just install it locally with global packages anyway.
+    # config.vm.provision "shell", path: "#{github_url}/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
     # Install Ruby Version Manager (RVM)
-    config.vm.provision "shell", path: "#{github_url}/scripts/rvm.sh", privileged: false, args: ruby_gems.unshift(ruby_version)
+    # config.vm.provision "shell", path: "#{github_url}/scripts/rvm.sh", privileged: false, args: ruby_gems.unshift(ruby_version)
 
     ####
     # Frameworks and Tooling
