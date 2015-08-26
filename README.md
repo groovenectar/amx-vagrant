@@ -1,6 +1,7 @@
 # amx-vagrant
 
-This project is deeply inspired by Vaprobash: https://github.com/fideloper/Vaprobash 
+This project is deeply inspired by Vaprobash: https://github.com/fideloper/Vaprobash
+and Wes Roberts (@jchook)
 
 	# Linux:
 
