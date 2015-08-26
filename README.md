@@ -3,12 +3,12 @@ and Wes Roberts (@jchook)
 
 	# Linux (and possibly OSX):
 
-	$ curl -L https://goo.gl/FDlS6V > Vagrantfile && curl -L https://goo.gl/Ktv03C > provision.sh && curl -L https://goo.gl/HTNNJi > hostfile.sh
+	$ curl -L https://goo.gl/FDlS6V > Vagrantfile && curl -L https://goo.gl/wtH9pu > provision.sh && curl -L https://goo.gl/HTNNJi > hostfile.sh
 	
 	# Windows (using PowerShell) (untested -- supports goo.gl redirect?) (does not support hostfile.sh):
 
-	$ (new-object System.Net.WebClient).DownloadFile('https://goo.gl/k6FNxZ', 'Vagrantfile')
-	$ (new-object System.Net.WebClient).DownloadFile('https://goo.gl/Ktv03C', 'provision.sh')
+	$ (new-object System.Net.WebClient).DownloadFile('https://goo.gl/FDlS6V', 'Vagrantfile')
+	$ (new-object System.Net.WebClient).DownloadFile('https://goo.gl/wtH9pu', 'provision.sh')
 
 Edit `Vagrantfile` and `provision.sh` to fit project requirements
 
