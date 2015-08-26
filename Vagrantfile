@@ -64,20 +64,21 @@ end
 
 if ((ARGV[0] == 'up' || ARGV[0] == 'provision') && mysql_root_password == '')
 	print "\nEnter MySQL root password: "
-	mysql_root_password = gets
-	mysql_root_password = mysql_root_password.chomp
+	mysql_root_password = STDIN.noecho(&:gets).chomp
 end
 
 if ((ARGV[0] == 'up' || ARGV[0] == 'provision') && database_name != '' && database_pass == '')
 	print "\nEnter new MySQL database password: "
-	database_pass = gets
-	database_pass = database_pass.chomp
+	database_pass = STDIN.noecho(&:gets).chomp
 end
 
 if ((ARGV[0] == 'up' || ARGV[0] == 'provision') && remote_database_ssh_user != '' && remote_database_pass == '')
-	print "\nEnter remote MySQL database password: "
-	remote_database_pass = gets
-	remote_database_pass = remote_database_pass.chomp
+	# print "\nEnter remote MySQL database password: "
+	# remote_database_pass = STDIN.noecho(&:gets).chomp
+	print "\nYou will be prompted for remote database connection information on first `vagrant ssh` session.\n"
+	print "Press any key to continue..."
+	STDIN.getch
+	print "\n\n"
 end
 
 # Globals
@@ -141,7 +142,7 @@ Vagrant.configure("2") do |config|
 	# Provision Apache
 	if (webserver == 'apache')
     	config.vm.provision "shell", path: script_path('apache.sh'), args: [server_ip, public_folder, synced_folder, hostname, script_path('apache.conf')]
-    end
+	end
 
 	# Provision Nginx, using PHP-FPM
 	if (webserver == 'nginx')
@@ -149,7 +150,20 @@ Vagrant.configure("2") do |config|
 	end
 
 	# Provision MySQL
-	config.vm.provision "shell", path: script_path('mysql.sh'), args: [mysql_root_password, mysql_enable_remote, database_name, database_user, database_pass, remote_database_ssh_user, remote_database_ssh_host, remote_database_name, database_user, database_pass]
+	config.vm.provision "shell", path: script_path('mysql.sh'), args: [
+		mysql_root_password,
+		mysql_enable_remote,
+		database_name,
+		database_user,
+		database_pass,
+		remote_database_ssh_user,
+		remote_database_ssh_host,
+		remote_database_name,
+		remote_database_user,
+		remote_database_pass,
+		synced_folder,
+		script_path('mysql_remote_pull.sh')
+	]
 
 	# Provision PHP
 	config.vm.provision "shell", path: script_path('php.sh'), args: [php_timezone, hhvm]
