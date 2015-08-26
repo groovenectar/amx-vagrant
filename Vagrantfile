@@ -131,7 +131,7 @@ Vagrant.configure("2") do |config|
 		# to sleep for instance, then some 3rd party services will reject requests.
 		vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
 		# Prevent VMs running on Ubuntu to lose internet connection
-		if ("#{vm_box}" == 'ubuntu/vivid64' || "#{vm_box}" == 'ubuntu/trusty64')
+		if ("#{vm_box}" == 'ubuntu/vivid64' || "#{vm_box}" == 'ubuntu/trusty64' || "#{vm_box}" == 'ubuntu/precise64')
 			vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 			vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 		end
