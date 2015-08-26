@@ -26,9 +26,9 @@ server_ip     = "172.23.103.203" # Static IP
 
 # Magento < 1.9 needs PHP <= 5.5
 # vm_box = "debian/jessie64" # Debian 8, PHP 5.6, MySQL 5.5
-vm_box = "debian/wheezy64" # Debian 7, PHP 5.4, MySQL 5.5
+# vm_box = "debian/wheezy64" # Debian 7, PHP 5.4, MySQL 5.5
 # vm_box = "ubuntu/vivid64"  # Ubuntu 15.04, PHP 5.6, MySQL 5.5
-# vm_box = "ubuntu/trusty64" # Ubuntu 14.04, PHP 5.5, MySQL 5.5
+vm_box = "ubuntu/trusty64" # Ubuntu 14.04, PHP 5.5, MySQL 5.5
 
 webserver = "nginx" # ["nginx"|"apache"|"none"]
 
@@ -128,27 +128,31 @@ Vagrant.configure("2") do |config|
 		# to sleep for instance, then some 3rd party services will reject requests.
 		vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
 		# Prevent VMs running on Ubuntu to lose internet connection
-		# vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-		# vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+		if ("#{vm_box}" == 'ubuntu/vivid64' || "#{vm_box}" == 'ubuntu/trusty64')
+			vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+			vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+		end
 	end
 
 	# Base scripts
-	config.vm.provision :shell, path: script_path('base.sh'), args: [server_swap, server_timezone]
-	config.vm.provision :shell, path: script_path('base_privileged.sh'), privileged: true
+	config.vm.provision "shell", path: script_path('base.sh'), args: [server_swap, server_timezone]
+	config.vm.provision "shell", path: script_path('base_privileged.sh'), privileged: true
 
-	# Provision PHP
-	config.vm.provision :shell, path: script_path('php.sh'), args: [php_timezone, hhvm]
-
-	# Provision web servers
-	if (webserver == 'nginx')
-		config.vm.provision :shell, path: script_path('nginx.sh'), args: [server_ip, public_folder, synced_folder, hostname, script_path('nginx.conf')]
-	end
+	# Provision Apache
 	if (webserver == 'apache')
     	config.vm.provision "shell", path: script_path('apache.sh'), args: [server_ip, public_folder, synced_folder, hostname, script_path('apache.conf')]
     end
 
+	# Provision Nginx, using PHP-FPM
+	if (webserver == 'nginx')
+		config.vm.provision "shell", path: script_path('nginx.sh'), args: [server_ip, public_folder, synced_folder, hostname, script_path('nginx.conf')]
+	end
+
 	# Provision MySQL
 	config.vm.provision "shell", path: script_path('mysql.sh'), args: [mysql_root_password, mysql_enable_remote, database_name, database_user, database_pass, remote_database_ssh_user, remote_database_ssh_host, remote_database_name, database_user, database_pass]
+
+	# Provision PHP
+	config.vm.provision "shell", path: script_path('php.sh'), args: [php_timezone, hhvm]
 
 	# Provision Composer
 	config.vm.provision "shell", path: script_path('composer.sh'), privileged: false
