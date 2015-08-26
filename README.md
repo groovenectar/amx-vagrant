@@ -10,7 +10,7 @@ and Wes Roberts (@jchook)
 	$ (new-object System.Net.WebClient).DownloadFile('https://goo.gl/k6FNxZ', 'Vagrantfile')
 	$ (new-object System.Net.WebClient).DownloadFile('https://goo.gl/Ktv03C', 'provision.sh')
 
-Edit `Vagrantfile` to fit project requirements
+Edit `Vagrantfile` and `provision.sh` to fit project requirements
 
 	$ vagrant up
 
