@@ -11,6 +11,7 @@ database_user = ""
 database_pass = "" # Blank to prompt
 
 # Import remote MySQL database
+# `vagrant ssh` to start import
 remote_database_ssh_user = "" # Blank to skip
 remote_database_ssh_host = ""
 remote_database_name     = ""
