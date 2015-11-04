@@ -5,14 +5,18 @@ hostname = "amx.dev"
 synced_folder = "/var/www/#{hostname}"
 public_folder = "/var/www/#{hostname}/public"
 
+http_url="http://${hostname}/"
+https_url="http://${hostname}/"
+
 magento="false"
 wordpress="false"
 laravel="false"
 
 # Create new MySQL database
-database_name = "" # Blank to skip
-database_user = ""
-database_pass = "" # Blank to prompt
+database_name   = "" # Blank to skip
+database_user   = ""
+database_pass   = "" # Blank to prompt
+database_prefix = ""
 
 # Import remote MySQL database
 # `vagrant ssh` to start import
@@ -163,6 +167,7 @@ Vagrant.configure("2") do |config|
 		database_name,
 		database_user,
 		database_pass,
+		database_prefix,
 		remote_database_ssh_user,
 		remote_database_ssh_host,
 		remote_database_name,
@@ -171,6 +176,8 @@ Vagrant.configure("2") do |config|
 		synced_folder,
 		script_path('mysql_remote_pull.sh'),
 		mysql_version,
+		http_url,
+		https_url,
 		magento,
 		wordpress
 	]
