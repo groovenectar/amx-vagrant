@@ -44,7 +44,7 @@ php_timezone    = "UTC"    # http://php.net/manual/en/timezones.php
 # Database Configuration
 mysql_root_password = "root"  # Blank to prompt
 mysql_enable_remote = "false" # remote access enabled when true
-mysql_version       = "5.6"   # ["5.5"|"5.6"
+mysql_version       = "5.6"   # ["5.5"|"5.6"]
 
 # To install HHVM instead of PHP, set this to "true"
 hhvm = "false"
